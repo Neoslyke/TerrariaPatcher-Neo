@@ -94,7 +94,7 @@ namespace TerrariaPatcher
 
         public static FieldDefinition AddStaticField(ModuleDefinition moduleDefinition, TypeDefinition classType, string field, Type type, object value = null)
         {
-            return AddStaticField(classType, field, moduleDefinition.Import(type), value);
+            return AddStaticField(classType, field, moduleDefinition.ImportReference(type), value);
         }
 
         public static FieldDefinition AddStaticField(TypeDefinition classType, string field, TypeReference type, object value = null)
@@ -234,7 +234,7 @@ namespace TerrariaPatcher
 		/// <returns></returns>
 		public static ModuleDefinition GetModuleDefinition(AssemblyDefinition definition, string fullyQualifiedName, bool verbose = true)
 		{
-			ModuleDefinition module = definition.Modules.FirstOrDefault(p => p.FullyQualifiedName == fullyQualifiedName);
+			ModuleDefinition module = definition.Modules.FirstOrDefault(p => p.FileName == fullyQualifiedName);
 
 			if (module == null && verbose)
 			{

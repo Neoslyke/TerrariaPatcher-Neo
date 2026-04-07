@@ -195,8 +195,8 @@ namespace TerrariaPatcher
             var player = IL.GetTypeDefinition(_mainModule, "Player");
             var updatePlayer = IL.GetMethodDefinition(player, "Update");
 
-            var thornsScaling = new MethodDefinition("ThornsScaling", MethodAttributes.Private, _mainModule.Import(typeof(int)));
-            thornsScaling.Parameters.Add(new ParameterDefinition(_mainModule.Import(typeof(int))));
+            var thornsScaling = new MethodDefinition("ThornsScaling", MethodAttributes.Private, _mainModule.ImportReference(typeof(int)));
+            thornsScaling.Parameters.Add(new ParameterDefinition(_mainModule.ImportReference(typeof(int))));
             var thornsScalingIL = thornsScaling.Body.GetILProcessor();
             thornsScalingIL.Emit(OpCodes.Ldarg_1);
             thornsScalingIL.Emit(OpCodes.Conv_R4);
@@ -226,7 +226,7 @@ namespace TerrariaPatcher
                 var in0 = updatePlayer.Body.Instructions[spot2];
                 var in1 = updatePlayer.Body.Instructions[spot2 + 1];
                 il.Remove(in0);
-                il.InsertBefore(in1, il.Create(OpCodes.Call, _mainModule.Import(thornsScaling)));
+                il.InsertBefore(in1, il.Create(OpCodes.Call, _mainModule.ImportReference(thornsScaling)));
                 il.Remove(in1);
             }
         }
@@ -546,38 +546,38 @@ namespace TerrariaPatcher
             var loaderFileName = "PluginLoader.XNA.dll";
             using (var fna = AssemblyDefinition.ReadAssembly(loaderFileName))
                 loader = _mainModule.ImportReference(new TypeReference("PluginLoader", "Loader", fna.MainModule, fna.MainModule)).Resolve();
-            var onInitialize = _mainModule.Import(IL.GetMethodDefinition(loader, "OnInitialize"));
-            var onDrawSplash = _mainModule.Import(IL.GetMethodDefinition(loader, "OnDrawSplash"));
-            var onDrawInterface = _mainModule.Import(IL.GetMethodDefinition(loader, "OnDrawInterface"));
-            var onDrawInventory = _mainModule.Import(IL.GetMethodDefinition(loader, "OnDrawInventory"));
-            var onPreUpdate = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPreUpdate"));
-            var onUpdate = _mainModule.Import(IL.GetMethodDefinition(loader, "OnUpdate"));
-            var onUpdateTime = _mainModule.Import(IL.GetMethodDefinition(loader, "OnUpdateTime"));
-            var onCheckXmas = _mainModule.Import(IL.GetMethodDefinition(loader, "OnCheckXmas"));
-            var onCheckHalloween = _mainModule.Import(IL.GetMethodDefinition(loader, "OnCheckHalloween"));
-            var onPlaySound = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlaySound"));
-            var onPlayerPreSpawn = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerPreSpawn"));
-            var onPlayerSpawn = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerSpawn"));
-            var onPlayerLoad = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerLoad"));
-            var onPlayerSave = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerSave"));
-            var onPlayerPreUpdate = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerPreUpdate"));
-            var onPlayerUpdate = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerUpdate"));
-            var onPlayerUpdateBuffs = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerUpdateBuffs"));
-            var onPlayerUpdateEquips = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerUpdateEquips"));
-            var onPlayerUpdateArmorSets = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerUpdateArmorSets"));
-            var onPlayerKillMe = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerKillMe"));
-            var onPlayerHurt = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerHurt"));
-            var onPlayerPickAmmo = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerPickAmmo"));
-            var onItemSetDefaults = _mainModule.Import(IL.GetMethodDefinition(loader, "OnItemSetDefaults"));
-            var onProjectileAI = _mainModule.Import(IL.GetMethodDefinition(loader, "OnProjectileAI001"));
-            var onRightClick = _mainModule.Import(IL.GetMethodDefinition(loader, "OnItemSlotRightClick"));
-            var onItemRollAPrefix = _mainModule.Import(IL.GetMethodDefinition(loader, "OnItemRollAPrefix"));
-            var onSendChatMessageFromClient = _mainModule.Import(IL.GetMethodDefinition(loader, "OnSendChatMessageFromClient"));
-            var onGetColor = _mainModule.Import(IL.GetMethodDefinition(loader, "OnLightingGetColor"));
-            var onGetItem = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerGetItem"));
-            var onChestSetupShop = _mainModule.Import(IL.GetMethodDefinition(loader, "OnChestSetupShop"));
-            var onPlayerQuickBuff = _mainModule.Import(IL.GetMethodDefinition(loader, "OnPlayerQuickBuff"));
-            var onNPCLoot = _mainModule.Import(IL.GetMethodDefinition(loader, "OnNPCLoot"));
+            var onInitialize = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnInitialize"));
+            var onDrawSplash = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnDrawSplash"));
+            var onDrawInterface = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnDrawInterface"));
+            var onDrawInventory = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnDrawInventory"));
+            var onPreUpdate = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPreUpdate"));
+            var onUpdate = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnUpdate"));
+            var onUpdateTime = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnUpdateTime"));
+            var onCheckXmas = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnCheckXmas"));
+            var onCheckHalloween = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnCheckHalloween"));
+            var onPlaySound = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlaySound"));
+            var onPlayerPreSpawn = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerPreSpawn"));
+            var onPlayerSpawn = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerSpawn"));
+            var onPlayerLoad = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerLoad"));
+            var onPlayerSave = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerSave"));
+            var onPlayerPreUpdate = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerPreUpdate"));
+            var onPlayerUpdate = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerUpdate"));
+            var onPlayerUpdateBuffs = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerUpdateBuffs"));
+            var onPlayerUpdateEquips = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerUpdateEquips"));
+            var onPlayerUpdateArmorSets = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerUpdateArmorSets"));
+            var onPlayerKillMe = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerKillMe"));
+            var onPlayerHurt = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerHurt"));
+            var onPlayerPickAmmo = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerPickAmmo"));
+            var onItemSetDefaults = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnItemSetDefaults"));
+            var onProjectileAI = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnProjectileAI001"));
+            var onRightClick = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnItemSlotRightClick"));
+            var onItemRollAPrefix = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnItemRollAPrefix"));
+            var onSendChatMessageFromClient = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnSendChatMessageFromClient"));
+            var onGetColor = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnLightingGetColor"));
+            var onGetItem = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerGetItem"));
+            var onChestSetupShop = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnChestSetupShop"));
+            var onPlayerQuickBuff = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnPlayerQuickBuff"));
+            var onNPCLoot = _mainModule.ImportReference(IL.GetMethodDefinition(loader, "OnNPCLoot"));
 
             // Types
             var main = IL.GetTypeDefinition(_mainModule, "Main");
@@ -876,7 +876,7 @@ namespace TerrariaPatcher
             {
                 // Player.Hurt pre hook
                 var firstInstr = hurt.Body.Instructions.FirstOrDefault();
-                var varDbl = new VariableDefinition(_mainModule.Import(typeof(double)));
+                var varDbl = new VariableDefinition(_mainModule.ImportReference(typeof(double)));
                 hurt.Body.Variables.Add(varDbl);
                 IL.MethodPrepend(hurt, new[]
                 {
@@ -956,7 +956,7 @@ namespace TerrariaPatcher
             using (rollAPrefix.JumpFix())
             {
 	            // Item.RollAPrefix pre hook
-	            var varResult = new VariableDefinition(_mainModule.Import(typeof(bool)));
+	            var varResult = new VariableDefinition(_mainModule.ImportReference(typeof(bool)));
 	            rollAPrefix.Body.Variables.Add(varResult);
 	            var firstInstr = rollAPrefix.Body.Instructions.FirstOrDefault();
 	            IL.MethodPrepend(rollAPrefix, new[]
