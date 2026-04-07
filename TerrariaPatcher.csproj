@@ -141,11 +141,30 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>
-      IF "$(ConfigurationName)" == "Debug" EXIT
-      if "$(ConfigurationName)" == "Release" SET zip=$(ProjectDir)TerrariaPatcher.zip
-      if "$(ConfigurationName)" == "Release (Public)" SET zip=$(ProjectDir)TerrariaPatcher.public.zip
+      IF "$(ConfigurationName)" == "Debug" EXIT /B 0
+
+      IF "$(ConfigurationName)" == "Release" SET zip=$(ProjectDir)TerrariaPatcher.zip
+      IF "$(ConfigurationName)" == "Release (Public)" SET zip=$(ProjectDir)TerrariaPatcher.public.zip
+
       IF EXIST "%zip%" DEL "%zip%"
-      powershell -Command "Compress-Archive -Path '$(TargetDir)TerrariaPatcher.exe','$(TargetDir)PluginLoader.XNA.dll','$(TargetDir)Mono.Cecil.dll','$(TargetDir)Mono.Cecil.Rocks.dll','$(TargetDir)TerrariaPatcher.exe.config','$(ProjectDir)changelog.txt' -DestinationPath '%zip%' -Force"
+      IF EXIST "$(ProjectDir)buildtemp" RMDIR /S /Q "$(ProjectDir)buildtemp"
+
+      mkdir "$(ProjectDir)buildtemp"
+      mkdir "$(ProjectDir)buildtemp\Plugins"
+
+      copy "$(TargetDir)TerrariaPatcher.exe" "$(ProjectDir)buildtemp\"
+      copy "$(TargetDir)PluginLoader.XNA.dll" "$(ProjectDir)buildtemp\"
+      copy "$(TargetDir)Mono.Cecil.dll" "$(ProjectDir)buildtemp\"
+      copy "$(TargetDir)Mono.Cecil.Rocks.dll" "$(ProjectDir)buildtemp\"
+      copy "$(TargetDir)TerrariaPatcher.exe.config" "$(ProjectDir)buildtemp\"
+      copy "$(ProjectDir)changelog.txt" "$(ProjectDir)buildtemp\"
+
+      xcopy "$(ProjectDir)TranscendPlugins\*.cs" "$(ProjectDir)buildtemp\Plugins\" /Y
+      xcopy "$(ProjectDir)TranscendPlugins\Shared" "$(ProjectDir)buildtemp\Plugins\Shared\" /E /I /Y
+
+      powershell -NoProfile -Command "Compress-Archive -Path '$(ProjectDir)buildtemp\*' -DestinationPath '%zip%' -Force"
+
+      RMDIR /S /Q "$(ProjectDir)buildtemp"
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
