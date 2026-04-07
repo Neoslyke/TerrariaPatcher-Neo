@@ -231,7 +231,7 @@ namespace TerrariaPatcher
             allOut.Enabled = buffsIn.Items.Count > 0;
 
             buffsOutCount.Text = "(list of possibilities) [" + buffsOut.Items.Count + "]";
-            buffsInCount.Text = "(actual persistent buffs) [" + buffsIn.Items.Count + " / 22]";
+            buffsInCount.Text = "(actual persistent buffs) [" + buffsIn.Items.Count + " / 44]";
 
             SaveConfig();
         }
@@ -382,8 +382,8 @@ namespace TerrariaPatcher
                 }
 
                 var buffValues = (from Buff buff in buffs.Where(buff => buff.Active) select buff.Index).ToList();
-                if (buffValues.Count > 22)
-	                MessageBox.Show("Adding more than 22 persistent buffs is not possible without additional game modifications (tModLoader, etc).", Program.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (buffValues.Count > 44)
+	                MessageBox.Show("Adding more than 44 persistent buffs is not possible without additional game modifications (tModLoader, etc).", Program.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 
                 var details = new TerrariaDetails()
                 {

@@ -52,7 +52,7 @@ namespace TranscendPlugins
 
         public void OnPlayerUpdateBuffs(Player player)
         {
-            for (int k = 0; k < 22; k++)
+            for (int k = 0; k < 44; k++)
             {
                 if (player.buffType[k] > 0 && player.buffTime[k] > 0)
                 {

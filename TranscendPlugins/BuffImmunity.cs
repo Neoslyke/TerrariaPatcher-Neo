@@ -38,7 +38,7 @@ namespace TranscendPlugins
         {
             foreach (var type in buffs)
             {
-                for (int j = 0; j < 22; j++)
+                for (int j = 0; j < 44; j++)
                 {
                     if (player.buffType[j] == type)
                         player.DelBuff(j);
