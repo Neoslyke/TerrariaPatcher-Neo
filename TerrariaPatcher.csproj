@@ -140,13 +140,13 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>IF "$(ConfigurationName)" == "Debug" EXIT
-if "$(ConfigurationName)" == "Release" SET zip=$(ProjectDir)TerrariaPatcher.zip
-if "$(ConfigurationName)" == "Release (Public)" SET zip=$(ProjectDir)TerrariaPatcher.public.zip
-IF EXIST "%25zip%25" DEL "%25zip%25"
-"C:\Program Files\WinRAR\WINRAR.exe" a -ep1 "%25zip%25" "$(TargetDir)TerrariaPatcher.exe" "$(TargetDir)PluginLoader.XNA.dll" "$(TargetDir)Mono.Cecil.dll" "$(TargetDir)Mono.Cecil.Rocks.dll" "$(TargetDir)TerrariaPatcher.exe.config" "$(ProjectDir)changelog.txt"
-"C:\Program Files\WinRAR\WINRAR.exe" a -ep1 -apPlugins "%25zip%25" "$(ProjectDir)\TranscendPlugins\*.cs"
-"C:\Program Files\WinRAR\WINRAR.exe" a -ep1 -r -apPlugins\Shared "%25zip%25" "$(ProjectDir)\TranscendPlugins\Shared\*.cs"</PostBuildEvent>
+    <PostBuildEvent>
+      IF "$(ConfigurationName)" == "Debug" EXIT
+      if "$(ConfigurationName)" == "Release" SET zip=$(ProjectDir)TerrariaPatcher.zip
+      if "$(ConfigurationName)" == "Release (Public)" SET zip=$(ProjectDir)TerrariaPatcher.public.zip
+      IF EXIST "%zip%" DEL "%zip%"
+      powershell -Command "Compress-Archive -Path '$(TargetDir)TerrariaPatcher.exe','$(TargetDir)PluginLoader.XNA.dll','$(TargetDir)Mono.Cecil.dll','$(TargetDir)Mono.Cecil.Rocks.dll','$(TargetDir)TerrariaPatcher.exe.config','$(ProjectDir)changelog.txt' -DestinationPath '%zip%' -Force"
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
